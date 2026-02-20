@@ -14,7 +14,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   api:
-    build: ./marketplace
+    build: ./marketplace-api
     container_name: marketplace-api
     depends_on:
       - postgres
