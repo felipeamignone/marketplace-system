@@ -1,0 +1,44 @@
+services:
+
+  postgres:
+    image: postgres:18
+    container_name: marketplace-postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: marketplace
+      POSTGRES_PASSWORD: marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  api:
+    build: ./marketplace
+    container_name: marketplace-api
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/marketplace
+      SPRING_DATASOURCE_USERNAME: marketplace
+      SPRING_DATASOURCE_PASSWORD: marketplace
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  
+  consumer:
+    build: ./marketplace-consumer
+    container_name: marketplace-consumer
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/marketplace_consumer
+      SPRING_DATASOURCE_USERNAME: marketplace
+      SPRING_DATASOURCE_PASSWORD: marketplace
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      MARKETPLACE_API_URL: http://api:8080
+
+volumes:
+  postgres_data:

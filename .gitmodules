@@ -1,0 +1,6 @@
+[submodule "marketplace-consumer"]
+	path = marketplace-consumer
+	url = https://github.com/felipeamignone/marketplace-consumer.git
+[submodule "marketplace-api"]
+	path = marketplace-api
+	url = https://github.com/felipeamignone/marketplace_api.git
