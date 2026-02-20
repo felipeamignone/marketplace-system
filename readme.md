@@ -10,7 +10,13 @@ Projeto composto por duas APIs Spring Boot que se comunicam via webhook para sim
 ## 1. Inicialização do projeto
 
 Na raiz do projeto, execute:
+```bash
+git clone https://github.com/felipeamignone/marketplace-api.git
+git clone https://github.com/felipeamignone/marketplace-consumer.git
+```
+Esse comando irá clonar os sub-diretórios do projeto.
 
+Após os sub-diretórios serem clonados, execute:
 ```bash
 docker-compose up --build
 ```
